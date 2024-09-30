@@ -34,7 +34,7 @@ CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
 "
 
 build_kernel(){
-    make ${ARGS} acrux_defconfig
+    make ${ARGS} acrux_defconfig ksu.config
     make ${ARGS} menuconfig
     make ${ARGS}
 }
