@@ -11,12 +11,7 @@ if [ ! -f "$HOME/python" ]; then
     ln -s /usr/bin/python2.7 "$HOME/python"
 fi 
 
-#proton-12
-if [ ! -d "${RDIR}/toolchains" ]; then
-    mkdir -p "${RDIR}/toolchains"
-    git clone --depth=1 https://github.com/kdrag0n/proton-clang.git --single-branch toolchains/clang
-fi
-
+# ⚠️ EDIT THIS VALUE BY USING THE PATH FOR YOUR COMPLIER'S BIN (ONLY EDIT $PWD/toolchains/clang/bin PART)
 export PATH=$PWD/toolchains/clang/bin:$PATH
 
 #output dir
@@ -24,6 +19,7 @@ if [ ! -d "${RDIR}/out" ]; then
     mkdir -p "${RDIR}/out"
 fi
 
+# ⚠️ EDIT THIS ALSO ACCORDING TO YOUR NEEDS
 export ARGS="
 -j$(nproc) \
 O=$(pwd)/out \
