@@ -56,13 +56,3 @@ index ba998185..8be89e61 100644
  extern struct key *init_session_keyring;
  #endif
  
-diff --git a/website/docs/guide/module.md b/website/docs/guide/module.md
-index 78f5aa64..9625d163 100644
---- a/website/docs/guide/module.md
-+++ b/website/docs/guide/module.md
-@@ -324,4 +324,4 @@ input password to decrypt /data/data
- start user apps (autostart)
- ```
- 
--If you are interested in Android Init Language, it is recommended to read it's [documentation](https://android.googlesource.com/platform/system/core/+/master/init/README.md).
-+If you are interested in Android Init Language, it is recommended to read its [documentation](https://android.googlesource.com/platform/system/core/+/master/init/README.md).
