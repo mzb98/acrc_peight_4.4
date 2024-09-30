@@ -32,6 +32,11 @@ CC=clang \
 CROSS_COMPILE=aarch64-linux-gnu- \
 CROSS_COMPILE_ARM32=arm-linux-gnueabi- \
 "
+#allowlist patch
+if [ ! -f ".allowlist_patched" ]; then
+    patch -p1 < "${RDIR}/ksu.patch"
+    echo "1" > "${RDIR}/.allowlist_patched"
+fi
 
 build_kernel(){
     make ${ARGS} acrux_defconfig ksu.config

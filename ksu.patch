@@ -1,0 +1,68 @@
+diff --git a/KernelSU/kernel/core_hook.c b/KernelSU/kernel/core_hook.c
+index 429ba330..1c1a5307 100644
+--- a/KernelSU/kernel/core_hook.c
++++ b/KernelSU/kernel/core_hook.c
+@@ -625,7 +625,7 @@ static int ksu_task_prctl(int option, unsigned long arg2, unsigned long arg3,
+ 	return -ENOSYS;
+ }
+ // kernel 4.4 and 4.9
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(CONFIG_IS_HW_HISI)
++#if 1
+ static int ksu_key_permission(key_ref_t key_ref, const struct cred *cred,
+ 			      unsigned perm)
+ {
+@@ -658,8 +658,7 @@ static struct security_hook_list ksu_hooks[] = {
+ 	LSM_HOOK_INIT(task_prctl, ksu_task_prctl),
+ 	LSM_HOOK_INIT(inode_rename, ksu_inode_rename),
+ 	LSM_HOOK_INIT(task_fix_setuid, ksu_task_fix_setuid),
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(CONFIG_IS_HW_HISI)
+-	LSM_HOOK_INIT(key_permission, ksu_key_permission)
++#if 1
+ #endif
+ };
+ 
+diff --git a/KernelSU/kernel/kernel_compat.c b/KernelSU/kernel/kernel_compat.c
+index b242bc63..aab166c0 100644
+--- a/KernelSU/kernel/kernel_compat.c
++++ b/KernelSU/kernel/kernel_compat.c
+@@ -10,7 +10,7 @@
+ #include "klog.h" // IWYU pragma: keep
+ #include "kernel_compat.h" // Add check Huawei Device
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(CONFIG_IS_HW_HISI)
++#if 1
+ #include <linux/key.h>
+ #include <linux/errno.h>
+ #include <linux/cred.h>
+@@ -79,7 +79,7 @@ void ksu_android_ns_fs_check()
+ 
+ struct file *ksu_filp_open_compat(const char *filename, int flags, umode_t mode)
+ {
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(CONFIG_IS_HW_HISI)
++#if 1
+ 	if (init_session_keyring != NULL && !current_cred()->session_keyring &&
+ 	    (current->flags & PF_WQ_WORKER)) {
+ 		pr_info("installing init session keyring for older kernel\n");
+diff --git a/KernelSU/kernel/kernel_compat.h b/KernelSU/kernel/kernel_compat.h
+index ba998185..8be89e61 100644
+--- a/KernelSU/kernel/kernel_compat.h
++++ b/KernelSU/kernel/kernel_compat.h
+@@ -24,7 +24,7 @@ extern long ksu_strncpy_from_user_nofault(char *dst,
+ 					  const void __user *unsafe_addr,
+ 					  long count);
+ 
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(4, 10, 0) || defined(CONFIG_IS_HW_HISI)
++#if 1
+ extern struct key *init_session_keyring;
+ #endif
+ 
+diff --git a/website/docs/guide/module.md b/website/docs/guide/module.md
+index 78f5aa64..9625d163 100644
+--- a/website/docs/guide/module.md
++++ b/website/docs/guide/module.md
+@@ -324,4 +324,4 @@ input password to decrypt /data/data
+ start user apps (autostart)
+ ```
+ 
+-If you are interested in Android Init Language, it is recommended to read it's [documentation](https://android.googlesource.com/platform/system/core/+/master/init/README.md).
++If you are interested in Android Init Language, it is recommended to read its [documentation](https://android.googlesource.com/platform/system/core/+/master/init/README.md).
